@@ -40,6 +40,39 @@ TanStack Query: 서버 데이터 캐싱/리트라이/동기화
 npm install zustand @tanstack/react-query
 ```
 
+vitest : 테스팅(ci를 위한 용도)
+
+```bash
+npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
+```
+
+```ts
+// vitest.config.ts
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./vitest.setup.ts",
+  },
+});
+
+// vitest.setup.ts
+import "@testing-library/jest-dom";
+```
+
+```json
+// package.json
+{
+  "scripts": {
+    "test": "vitest run"
+  }
+}
+```
+
+> npm run test → vitest run
+
 (선택) Zod: API 응답 런타임 검증
 
 ```bash
@@ -65,6 +98,18 @@ npm install clsx tailwind-merge
 #### CI/CD
 
 목표 : PR 올리면 자동으로 lint/typecheck/test/build 돌고, 통과해야 main에 머지 가능
+
+1. CI 워크플로우 생성
+2. main 브랜치 깃허브에서 보호(CI를 강제하기)
+3. CD는 vercel으로 처리
+
+```json
+"typecheck": "tsc --noEmit" // TypeScript 타입 에러만 검사
+
+// build에서도 타입 검사를 하지만 타입 체크 + 번들링 + 최적화 + 서버 코드 처리 다 하기 때문에 느림
+// tsc --noEmit는 타입만 체크해서 아래와 같이 처리하여 효율적
+// lint → typecheck → test → build
+```
 
 #### 디렉토리
 
