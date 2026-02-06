@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic"; // 빌드타임 고정/캐싱 방지(항상 요청 시 실행)
+
 export async function GET(
   _req: Request,
-  ctx: { params: Promise<{ characterName: string }> }, // ✅ Promise로 받기
+  ctx: { params: Promise<{ characterName: string }> }, // Promise로 받기
 ) {
-  const { characterName } = await ctx.params; // ✅ await로 unwrap
+  const { characterName } = await ctx.params; // await로 unwrap
 
   const baseUrl = process.env.LOSTARK_BASE_URL;
   const jwt = process.env.LOSTARK_JWT?.trim();
 
+  // ✅ 요청이 실제로 들어왔을 때만 env를 읽음
   if (!baseUrl || !jwt) {
     return NextResponse.json(
       { message: "Server env is missing (LOSTARK_BASE_URL or LOSTARK_JWT)" },
@@ -36,7 +39,7 @@ export async function GET(
         authorization: `bearer ${jwt}`,
       },
       // Next 서버에서 외부 API 호출은 캐시 끄는 게 개발 단계에 편함
-      cache: "no-store",
+      cache: "no-store", // 요청 시마다 새로
     });
 
     const text = await res.text();

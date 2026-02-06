@@ -8,6 +8,8 @@ on:
 jobs:
   ci:
     runs-on: ubuntu-latest
+    env:
+      LOSTARK_JWT: ${{ secrets.LOSTARK_JWT }}
     timeout-minutes: 15
 
     steps:

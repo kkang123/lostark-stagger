@@ -9,11 +9,7 @@ import { useSiblings } from "@/lib/lostark/queries";
 export default function HomePage() {
   const submittedName = useCharacterSearchStore((s) => s.submittedName);
 
-  const enabled = submittedName.length > 0;
-  const { data, isLoading, isError, error } = useSiblings(
-    submittedName,
-    enabled,
-  );
+  const { data, isLoading, isError, error } = useSiblings(submittedName);
 
   return (
     <main className="min-h-dvh bg-[#212225] text-zinc-100">

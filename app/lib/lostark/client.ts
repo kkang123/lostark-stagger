@@ -7,6 +7,7 @@ export async function fetchSiblings(
   if (!name) return [];
 
   const res = await fetch(
+    // 브라우저 → Next.js 서버(Route Handler) 로 가는 요청
     `/api/characters/${encodeURIComponent(name)}/siblings`,
     {
       method: "GET",
