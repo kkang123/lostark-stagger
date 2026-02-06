@@ -1,8 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useCharacterSearchStore } from "@/stores/characterSearch.store";
 
 export default function CharacterSearchForm() {
+  const router = useRouter();
+
   const input = useCharacterSearchStore((s) => s.input);
   const setInput = useCharacterSearchStore((s) => s.setInput);
   const submit = useCharacterSearchStore((s) => s.submit);
@@ -16,6 +19,11 @@ export default function CharacterSearchForm() {
       onSubmit={(e) => {
         e.preventDefault();
         submit();
+
+        // ✅ submit이 submittedName을 갱신하는 구조라면,
+        // 이 타이밍에 아직 이전 값일 수 있어서 input을 기준으로 push하는 게 안전함
+        const name = input.trim();
+        router.push(`/char/${encodeURIComponent(name)}`);
       }}
       className="flex flex-col gap-3"
     >

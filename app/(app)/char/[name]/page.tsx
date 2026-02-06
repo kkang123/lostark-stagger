@@ -1,31 +1,34 @@
 "use client";
 
+import React from "react";
+
 import CharacterSearchForm from "@/components/character/CharacterSearchForm";
 import SiblingsList from "@/components/character/SiblingsList";
-import { useCharacterSearchStore } from "@/stores/characterSearch.store";
+
 import { useSiblings } from "@/lib/lostark/queries";
 
-export default function HomePage() {
-  const submittedName = useCharacterSearchStore((s) => s.submittedName);
+type Props = {
+  params: Promise<{ name: string }>;
+};
 
-  const { data, isLoading, isError, error } = useSiblings(submittedName);
+export default function CharacterPage({ params }: Props) {
+  const { name } = React.use(params); // ✅ Promise 언랩
+  const decodedName = decodeURIComponent(name);
+
+  const { data, isLoading, isError, error } = useSiblings(decodedName);
 
   return (
     <main className="min-h-dvh bg-[#212225] text-zinc-100">
       <div className="mx-auto w-full max-w-3xl px-4 py-10">
-        <h1 className="text-2xl font-semibold">로스트아크 캐릭터 검색</h1>
-        <p className="mt-2 text-sm text-zinc-300">
-          캐릭터명을 입력하면 해당 계정의 캐릭터(서버/직업/레벨/아이템레벨)를
-          조회합니다.
-        </p>
+        <h1 className="text-2xl font-semibold">캐릭터: {decodedName}</h1>
 
         <div className="mt-6">
           <CharacterSearchForm />
         </div>
 
-        {/* <div className="mt-8">
+        <div className="mt-8">
           <SiblingsList
-            characterName={submittedName}
+            characterName={decodedName}
             data={data ?? []}
             loading={isLoading}
             errorMsg={
@@ -34,7 +37,7 @@ export default function HomePage() {
                 : null
             }
           />
-        </div> */}
+        </div>
       </div>
     </main>
   );
