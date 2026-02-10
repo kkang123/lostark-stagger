@@ -1,7 +1,9 @@
+// 검색만(최단 루트)
+
 "use client";
 
 import CharacterSearchForm from "@/components/character/CharacterSearchForm";
-import SiblingsList from "@/components/character/SiblingsList";
+
 import { useCharacterSearchStore } from "@/stores/characterSearch.store";
 import { useSiblings } from "@/lib/lostark/queries";
 
@@ -22,19 +24,6 @@ export default function HomePage() {
         <div className="mt-6">
           <CharacterSearchForm />
         </div>
-
-        {/* <div className="mt-8">
-          <SiblingsList
-            characterName={submittedName}
-            data={data ?? []}
-            loading={isLoading}
-            errorMsg={
-              isError
-                ? ((error as Error)?.message ?? "에러가 발생했어요")
-                : null
-            }
-          />
-        </div> */}
       </div>
     </main>
   );
