@@ -1,6 +1,7 @@
 "use client";
 
-import ProfilePanel from "@/components/character/ProfilePanel";
+import ProfilePanel from "./ProfilePanel";
+import EquipmentPanel from "./EquipmentPanel";
 
 type Props = {
   name: string;
@@ -11,6 +12,7 @@ export default function CharacterDetailsClient({ name }: Props) {
     <section className="grid gap-4">
       {/* 기본 프로필 */}
       <ProfilePanel name={name} />
+      <EquipmentPanel name={name} />
 
       {/* 이후 확장 예정 */}
       {/*

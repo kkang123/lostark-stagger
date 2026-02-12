@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import OverviewSection from "@/components/character/OverviewSection";
+import OverviewSection from "./_components/OverviewSection";
 import SiblingsTab from "@/components/character/SiblingsTab";
 
 type Tab = "overview" | "siblings";
