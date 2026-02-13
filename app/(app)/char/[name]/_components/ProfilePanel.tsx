@@ -6,8 +6,10 @@
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 
+import type { CharacterName } from "@/types/character.type";
+
 type Props = {
-  name: string;
+  name: CharacterName;
 };
 
 type CharacterProfile = {
@@ -19,7 +21,9 @@ type CharacterProfile = {
   CharacterImage: string | null;
 };
 
-async function fetchCharacterProfile(name: string): Promise<CharacterProfile> {
+async function fetchCharacterProfile(
+  name: CharacterName,
+): Promise<CharacterProfile> {
   // ✅ 외부 API 직접 호출 금지 → 내부 route.ts로 호출
   const res = await fetch(
     `/api/armories/characters/${encodeURIComponent(name)}/profile`,

@@ -3,8 +3,10 @@
 import ProfilePanel from "./ProfilePanel";
 import EquipmentPanel from "./EquipmentPanel";
 
+import type { CharacterName } from "@/types/character.type";
+
 type Props = {
-  name: string;
+  name: CharacterName;
 };
 
 export default function CharacterDetailsClient({ name }: Props) {

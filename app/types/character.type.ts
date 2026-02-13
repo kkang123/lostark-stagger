@@ -1,0 +1,1 @@
+export type CharacterName = string;

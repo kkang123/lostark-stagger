@@ -4,10 +4,12 @@ import { useState } from "react";
 import OverviewSection from "./_components/OverviewSection";
 import SiblingsTab from "@/components/character/SiblingsTab";
 
+import type { CharacterName } from "@/types/character.type";
+
 type Tab = "overview" | "siblings";
 
 type Props = {
-  name: string;
+  name: CharacterName;
 };
 
 export default function CharacterDetailsClient({ name }: Props) {

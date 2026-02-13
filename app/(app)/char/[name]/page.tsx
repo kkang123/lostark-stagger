@@ -1,8 +1,10 @@
 // 서버 컴포넌트
 import CharacterDetailsClient from "@/(app)/char/[name]/CharacterDetailsClient";
 
+import type { CharacterName } from "@/types/character.type";
+
 type Props = {
-  params: Promise<{ name: string }>;
+  params: Promise<{ name: CharacterName }>;
 };
 
 export default async function CharacterDetailsPage({ params }: Props) {
