@@ -1,4 +1,7 @@
+// 원정대캐릭 목록
 "use client";
+
+import Link from "next/link";
 
 import type { LostarkSibling } from "@/lib/lostark/types";
 
@@ -69,22 +72,27 @@ export default function SiblingsList({
       <ul className="divide-y divide-white/5">
         {sortedData.map((c) => (
           <li key={`${c.ServerName}:${c.CharacterName}`} className="px-5 py-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <p className="text-sm font-medium">{c.CharacterName}</p>
-                <p className="mt-1 text-xs text-zinc-300">
-                  {c.ServerName} · {c.CharacterClassName} · Lv.
-                  {c.CharacterLevel}
-                </p>
-              </div>
+            <Link
+              href={`/char/${encodeURIComponent(c.CharacterName)}`}
+              className="block relative z-10"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="text-sm font-medium">{c.CharacterName}</p>
+                  <p className="mt-1 text-xs text-zinc-300">
+                    {c.ServerName} · {c.CharacterClassName} · Lv.
+                    {c.CharacterLevel}
+                  </p>
+                </div>
 
-              <div className="text-right">
-                <p className="text-xs text-zinc-400">아이템 레벨</p>
-                <p className="text-sm font-semibold tabular-nums">
-                  {c.ItemAvgLevel}
-                </p>
+                <div className="text-right">
+                  <p className="text-xs text-zinc-400">아이템 레벨</p>
+                  <p className="text-sm font-semibold tabular-nums">
+                    {c.ItemAvgLevel}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           </li>
         ))}
       </ul>
