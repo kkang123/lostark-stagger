@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 
 import EquipmentDetailDialog from "@/components/equipment/EquipmentDetailDialog";
-import EquipmentRow from "@/components/equipment/EquipmentRow";
+// import EquipmentRow from "@/components/equipment/EquipmentRow";
 import { toEquipmentUI } from "@/lib/lostark/equipment.mapper";
 import { splitAndSortEquipment } from "@/lib/lostark/equipment.sort";
 
@@ -76,7 +76,7 @@ export default function EquipmentPanel({ name }: Props) {
   );
 
   const uiItems = items.map(toEquipmentUI);
-  const { left, right, other } = splitAndSortEquipment(uiItems);
+  // const { left, right, other } = splitAndSortEquipment(uiItems);
 
   return (
     <>
