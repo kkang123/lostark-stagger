@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import EquipmentDetailDialog from "@/components/equipment/EquipmentDetailDialog";
 // import EquipmentRow from "@/components/equipment/EquipmentRow";
 import { toEquipmentUI } from "@/lib/lostark/equipment.mapper";
-import { splitAndSortEquipment } from "@/lib/lostark/equipment.sort";
+// import { splitAndSortEquipment } from "@/lib/lostark/equipment.sort";
 
 import type { EquipmentItem } from "@/types/Equipment.type";
 import type { CharacterName } from "@/types/character.type";
