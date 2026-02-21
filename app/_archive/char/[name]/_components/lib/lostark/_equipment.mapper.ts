@@ -1,7 +1,10 @@
 // 매핑 규칙(색상/배경) + UI 모델 변환
 // 기존 타입 변경 이전의 매핑 코드
 import { extractEquipmentDetail } from "@/_archive/lib/lostark/ability_before/_tooltip";
-import type { EquipmentItem, EquipmentUI } from "@/types/Equipment.type";
+import type {
+  EquipmentItem,
+  EquipmentUI,
+} from "@/_archive/types/_Equipment.type";
 
 export function toEquipmentUI(item: EquipmentItem): EquipmentUI {
   const detail = extractEquipmentDetail(item);
