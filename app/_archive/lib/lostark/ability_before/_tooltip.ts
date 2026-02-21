@@ -61,6 +61,9 @@ export function extractEquipmentDetail(item: EquipmentItem) {
   const extraText = stripHtml(getStr(v007, "Element_001"));
   const arkPassiveText = stripHtml(getStr(v009, "Element_001"));
 
+  // 내구도 | 문자 제거 전
+  // const durabilityText = cleanText(stripHtml(t?.Element_014?.value ?? ""));
+
   const durabilityRaw = typeof v014 === "string" ? v014 : "";
   const durabilityText = cleanText(stripHtml(durabilityRaw));
 
