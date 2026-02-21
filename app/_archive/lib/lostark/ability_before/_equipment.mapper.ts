@@ -1,5 +1,5 @@
 // 매핑 규칙(색상/배경) + UI 모델 변환
-import { extractEquipmentDetail } from "./tooltip";
+import { extractEquipmentDetail } from "./_tooltip";
 import type {
   EquipmentItem,
   EquipmentUI,
