@@ -19,6 +19,7 @@ type Props = {
   name: CharacterName;
 };
 
+// armories.ts
 async function fetchCharacterEquipment(
   name: CharacterName,
 ): Promise<EquipmentItem[]> {
@@ -27,6 +28,7 @@ async function fetchCharacterEquipment(
     { cache: "no-store" },
   );
 
+  // http.ts
   if (!res.ok) {
     const body = await res.json().catch(() => null);
     const status = body?.status ?? res.status;
@@ -40,6 +42,7 @@ export default function EquipmentPanel({ name }: Props) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<EquipmentItem | null>(null);
 
+  // hooks
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["equipment", name],
     queryFn: () => getCharacterEquipment(name),
