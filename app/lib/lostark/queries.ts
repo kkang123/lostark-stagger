@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { fetchSiblings } from "./client";
-import type { LostarkSibling } from "./types";
+import type { LostarkSibling } from "@/types/Sibling.types";
 
 export const lostarkKeys = {
   siblings: (characterName: string) =>

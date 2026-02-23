@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 
-import type { LostarkSibling } from "@/lib/lostark/types";
+import type { LostarkSibling } from "@/types/Sibling.types";
 
 type Props = {
   characterName: string;

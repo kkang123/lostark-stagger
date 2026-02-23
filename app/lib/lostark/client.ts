@@ -1,4 +1,4 @@
-import type { LostarkSibling } from "./types";
+import type { LostarkSibling } from "../../types/Sibling.types";
 
 export async function fetchSiblings(
   characterName: string,
