@@ -113,3 +113,9 @@ function extractDurabilityTextHybrid(t: TooltipRoot): string {
 
   return "";
 }
+
+/* 최적화 */
+/* 
+실질적으로 최적화 무의미해서 적용 안함
+라이트하우스에서 개선점 발견 못해서 최적화 불필요 판단.
+*/
