@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
 ## 프로젝트 개요
 
 로스트아크 오픈 API를 사용해 캐릭터 장비·프로필 정보를 조회하는 Next.js 웹 앱.
@@ -8,14 +10,14 @@
 
 ## 기술 스택
 
-| 항목 | 버전/라이브러리 |
-|---|---|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript 5 |
-| UI | React 19, Tailwind CSS 4, shadcn/ui |
-| Server State | TanStack React Query 5 |
-| Client State | Zustand 5 |
-| Test | Vitest 4, Testing Library |
+| 항목         | 버전/라이브러리                     |
+| ------------ | ----------------------------------- |
+| Framework    | Next.js 16 (App Router)             |
+| Language     | TypeScript 5                        |
+| UI           | React 19, Tailwind CSS 4, shadcn/ui |
+| Server State | TanStack React Query 5              |
+| Client State | Zustand 5                           |
+| Test         | Vitest 4, Testing Library           |
 
 ---
 
@@ -66,7 +68,13 @@ app/
 
   components/                     # 공용 컴포넌트
     character/                    # 캐릭터 관련 공용 컴포넌트
+      CharacterSearchForm.tsx
+      SiblingsList.tsx
+      SiblingsTab.tsx
     equipment/                    # 장비 관련 공용 컴포넌트
+      EquipmentRow.tsx
+      EquipmentDetailDialog.tsx
+      AbilityStoneEngravingsSection.tsx
     ui/                           # shadcn/ui 컴포넌트
 
   dev/                            # 개발 전용 컴포넌트 (배포 전 삭제)
@@ -93,6 +101,7 @@ app/
 
   types/
     Equipment.type.ts             # EquipmentItem, EquipmentUI, GearUI, AccessoryUI
+    Sibling.types.ts              # 원정대(siblings) 관련 타입
     character.type.ts             # CharacterName
 
   _archive/                       # 과거 구현 백업 (라우팅에서 제외됨, 참고용)
@@ -107,14 +116,21 @@ app/
 ## 주요 타입
 
 ### `EquipmentItem` (API 원본)
+
 로스트아크 API에서 받은 원본 장비 데이터. `Tooltip` 필드가 JSON 문자열.
 
 ### `EquipmentUI` = `GearUI | AccessoryUI`
-- `GearUI`: 무기/방어구 (무기, 투구, 상의, 하의, 장갑, 어깨)
-- `AccessoryUI`: 장신구 (목걸이, 귀걸이, 반지, 팔찌, 어빌리티 스톤)
+
+- `GearUI`: 무기/방어구 (무기, 투구, 상의, 하의, 장갑, 어깨) — `kind: "gear"`, quality 항상 존재
+- `AccessoryUI`: 장신구 (목걸이, 귀걸이, 반지, 팔찌, 어빌리티 스톤) — `kind: "accessory"`, quality 옵셔널
 
 ### `EquipmentDetail` (`tooltip.ts`)
-`extractEquipmentDetail()`이 툴팁 파싱 후 반환하는 구조체.
+
+`extractEquipmentDetail()`이 툴팁 파싱 후 반환하는 구조체. quality, category, itemLevelText, basicText, durabilityText, abilityStoneEngravings 포함.
+
+### `AbilityStoneEngraving` (`tooltip.ts`)
+
+어빌리티 스톤 각인 한 줄. `isNegative`로 부정 각인 여부 판별.
 
 ---
 
@@ -128,7 +144,25 @@ app/
                  └─ EquipmentPanel.tsx (UI 렌더링)
                       ├─ toEquipmentUI() (equipment.mapper.ts)
                       └─ splitAndSortEquipment() (equipment.sort.ts)
+                           └─ { left: 무기/방어구, right: 장신구, other }
 ```
+
+---
+
+## Next.js 15 주의사항
+
+Route Handler의 `params`는 반드시 `await`로 풀어야 한다:
+
+```ts
+export async function GET(
+  _req: Request,
+  ctx: { params: Promise<{ characterName: string }> },
+) {
+  const { characterName } = await ctx.params;
+}
+```
+
+JWT는 route.ts에서만 사용하며 클라이언트로 노출되지 않는다. 빌드 타임에 외부 API 호출이 없어야 CI가 안전하게 동작한다.
 
 ---
 
@@ -141,6 +175,8 @@ LOSTARK_BASE_URL=https://developer-lostark.game.onstove.com
 LOSTARK_JWT=<발급받은 API 키>
 ```
 
+CI(GitHub Actions)에서는 `LOSTARK_JWT`를 Secrets에 등록.
+
 ---
 
 ## 컨벤션
@@ -151,3 +187,10 @@ LOSTARK_JWT=<발급받은 API 키>
 - **React Query 훅**: `app/hooks/` 또는 `app/lib/lostark/queries.ts`
 - **타입**: 도메인 타입은 `app/types/`, API 응답 구조는 해당 `lib/` 파일에 함께 정의
 - **아카이브**: 이전 구현은 `app/_archive/`에 보존 (라우팅 제외)
+- **아이템 레벨 수치**: `ItemAvgLevel` 등 콤마 포함 문자열은 `.replace(/,/g, "")` 후 `Number()`로 변환
+
+## Rules
+
+<!-- context7 룰 -->
+
+Always use context7 when I need code generation, setup or configuration steps, or library/API documentation.
