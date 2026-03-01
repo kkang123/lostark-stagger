@@ -20,7 +20,7 @@ export default function CharacterDetailsClient({ name }: Props) {
       <div className="mx-auto w-full max-w-3xl px-4 py-10">
         <h1 className="text-2xl font-semibold">캐릭터 : {name}</h1>
 
-        <div className="inline-flex rounded-xl bg-foreground/5 p-1">
+        <div className="inline-flex rounded-xl bg-gray-600 p-1">
           <button
             type="button"
             onClick={() => setTab("overview")}

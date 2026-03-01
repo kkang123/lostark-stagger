@@ -1,4 +1,5 @@
 // 장비
+
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
@@ -40,5 +41,12 @@ export async function GET(
     );
   }
 
-  return NextResponse.json(await res.json());
+  // return NextResponse.json(await res.json());
+
+  const data = await res.json();
+
+  // api 데이터 묶음 콘솔
+  console.log("✅ Equipment API response:", data);
+
+  return NextResponse.json(data);
 }
