@@ -194,3 +194,30 @@ CI(GitHub Actions)에서는 `LOSTARK_JWT`를 Secrets에 등록.
 <!-- context7 룰 -->
 
 Always use context7 when I need code generation, setup or configuration steps, or library/API documentation.
+
+<!-- frontend-design -->
+
+UI 작업 시 아래 규칙을 따를 것.
+
+**기술 스택**: React + Next.js + Tailwind CSS v4 + shadcn/ui
+
+**현재 디자인 시스템**
+
+- 다크 테마 고정: bg-[#212225], bg-zinc-950, text-zinc-100
+- 등급별 그라데이션 색상 시스템 유지 (고대/유물/전설/영웅)
+- 품질 수치 색상 구분 유지 (빨강/라임/파랑/보라/주황)
+
+**디자인 규칙**
+
+- generic 폰트 사용 금지 (Inter, Roboto, Arial, system-ui)
+- AI 클리셰 금지 (보라색 그라디언트 + 흰 배경 등)
+- 보라색 그라디언트 + 흰 배경 같은 AI 클리셰 금지
+- 애니메이션은 페이지 로드 시 staggered reveal 위주, micro-interaction 남발 금지
+- 배경은 단색보다 gradient mesh, noise texture, geometric pattern 권장
+
+**코드 품질 규칙**
+
+- console.log 절대 남기지 말 것
+- border 중복 사용 금지 (부모/자식 동시 border)
+- `<pre>` 태그로 raw 텍스트 표시 금지 — 항상 스타일링된 컴포넌트로 렌더링
+- 탭 버튼 배경은 다크 테마와 명확한 대비를 가진 색상 사용
