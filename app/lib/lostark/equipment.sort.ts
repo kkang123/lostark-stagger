@@ -2,9 +2,9 @@
 import type { EquipmentUI } from "@/types/Equipment.type";
 
 // 슬롯 순서
-const LEFT_ORDER = ["투구", "상의", "하의", "장갑", "어깨", "무기"];
+export const LEFT_ORDER = ["투구", "상의", "하의", "장갑", "어깨", "무기"];
 
-const RIGHT_ORDER = ["목걸이", "귀걸이", "반지", "팔찌", "어빌리티 스톤"];
+export const RIGHT_ORDER = ["목걸이", "귀걸이", "반지", "팔찌", "어빌리티 스톤"];
 
 // 분류 기준(여기서 추가 가능: '어빌리티 스톤', '부적' 등)
 function getGroup(type: string): "left" | "right" | "other" {

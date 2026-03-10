@@ -1,14 +1,13 @@
 // 장비
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useState } from "react";
 
 import EquipmentDetailDialog from "@/components/equipment/EquipmentDetailDialog";
 import EquipmentRow from "@/components/equipment/EquipmentRow";
 import { toEquipmentUI } from "@/lib/lostark/equipment.mapper";
 import { splitAndSortEquipment } from "@/lib/lostark/equipment.sort";
 import { useCharacterEquipmentQuery } from "@/hooks/useCharacterEquipmentQuery";
-import { getErrorMessage } from "@/lib/utils";
 
 import type { EquipmentItem } from "@/types/Equipment.type";
 import type { CharacterName } from "@/types/character.type";
@@ -23,17 +22,6 @@ export default function EquipmentPanel({ name }: Props) {
 
   const { data, isLoading, isError, error } = useCharacterEquipmentQuery(name);
 
-  const { left, right, other } = useMemo(() => {
-    if (!data || data.length === 0) return { left: [], right: [], other: [] };
-    const items = [...data].sort((a, b) => a.Type.localeCompare(b.Type));
-    return splitAndSortEquipment(items.map(toEquipmentUI));
-  }, [data]);
-
-  const handleSelectItem = useCallback((item: EquipmentItem) => {
-    setSelected(item);
-    setOpen(true);
-  }, []);
-
   if (isLoading) {
     return (
       <section className="rounded-2xl border border-white/10 bg-black/20 p-5 text-sm text-zinc-300">
@@ -45,7 +33,7 @@ export default function EquipmentPanel({ name }: Props) {
   if (isError) {
     return (
       <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-zinc-200">
-        {getErrorMessage(error)}
+        {(error as Error).message}
       </section>
     );
   }
@@ -57,6 +45,13 @@ export default function EquipmentPanel({ name }: Props) {
       </section>
     );
   }
+
+  const items = [...data].sort((a, b) =>
+    (a.Type ?? "").localeCompare(b.Type ?? ""),
+  );
+
+  const uiItems = items.map(toEquipmentUI);
+  const { left, right, other } = splitAndSortEquipment(uiItems);
 
   return (
     <>
@@ -71,7 +66,10 @@ export default function EquipmentPanel({ name }: Props) {
               <EquipmentRow
                 key={`${it.type}-${it.name}-${idx}`}
                 item={it}
-                onClick={() => handleSelectItem(it.raw)}
+                onClick={() => {
+                  setSelected(it.raw);
+                  setOpen(true);
+                }}
               />
             ))}
           </ul>
@@ -85,7 +83,10 @@ export default function EquipmentPanel({ name }: Props) {
               <EquipmentRow
                 key={`${it.type}-${it.name}-${idx}`}
                 item={it}
-                onClick={() => handleSelectItem(it.raw)}
+                onClick={() => {
+                  setSelected(it.raw);
+                  setOpen(true);
+                }}
               />
             ))}
           </ul>
@@ -100,7 +101,10 @@ export default function EquipmentPanel({ name }: Props) {
               <EquipmentRow
                 key={`${it.type}-${it.name}-${idx}`}
                 item={it}
-                onClick={() => handleSelectItem(it.raw)}
+                onClick={() => {
+                  setSelected(it.raw);
+                  setOpen(true);
+                }}
               />
             ))}
           </ul>
@@ -118,3 +122,30 @@ export default function EquipmentPanel({ name }: Props) {
     </>
   );
 }
+
+/*
+에서 
+  const items = [...data].sort((a, b) =>
+    (a.Type ?? "").localeCompare(b.Type ?? ""),
+  );
+
+  const uiItems = items.map(toEquipmentUI);
+  const { left, right, other } = splitAndSortEquipment(uiItems);
+
+
+
+이 부분을 
+
+  const { left, right, other } = useMemo(() => {
+    if (!data || data.length === 0) return { left: [], right: [], other: [] };
+    const items = [...data].sort((a, b) => a.Type.localeCompare(b.Type));
+    return splitAndSortEquipment(items.map(toEquipmentUI));
+  }, [data]);
+
+  const handleSelectItem = useCallback((item: EquipmentItem) => {
+    setSelected(item);
+    setOpen(true);
+  }, []);
+
+  이렇게 처리하여 코드 가독성 올리는 방법도 있음
+*/

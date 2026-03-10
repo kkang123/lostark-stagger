@@ -9,7 +9,7 @@ type Props = {
   name: CharacterName;
 };
 
-export default function CharacterDetailsClient({ name }: Props) {
+export default function OverviewSection({ name }: Props) {
   return (
     <section className="grid gap-4">
       {/* 기본 프로필 */}

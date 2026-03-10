@@ -71,34 +71,27 @@ function getObj(v: unknown, key: string): unknown {
   return v[key] ?? null;
 }
 
+function tryExtractDurability(value: unknown): string {
+  if (typeof value !== "string" || !value.includes("내구도")) return "";
+  const text = cleanText(stripHtml(value)).replace(/\|+$/g, "").trim();
+  const m = text.match(/내구도\s*[:：]?\s*(\d+)\s*\/\s*(\d+)/);
+  return m ? `내구도 ${m[1]} / ${m[2]}` : text;
+}
+
 function extractDurabilityTextHybrid(t: TooltipRoot): string {
   // 1) 빠른 경로(O(1)) - 흔한 위치 먼저
-  const v014 = t["Element_014"]?.value;
-  if (typeof v014 === "string" && v014.includes("내구도")) {
-    const text = cleanText(stripHtml(v014)).replace(/\|+$/g, "").trim();
-    const m = text.match(/내구도\s*[:：]?\s*(\d+)\s*\/\s*(\d+)/);
-    return m ? `내구도 ${m[1]} / ${m[2]}` : text;
-  }
+  const from014 = tryExtractDurability(t["Element_014"]?.value);
+  if (from014) return from014;
 
-  const v013 = t["Element_013"]?.value;
-  if (typeof v013 === "string" && v013.includes("내구도")) {
-    const text = cleanText(stripHtml(v013)).replace(/\|+$/g, "").trim();
-    const m = text.match(/내구도\s*[:：]?\s*(\d+)\s*\/\s*(\d+)/);
-    return m ? `내구도 ${m[1]} / ${m[2]}` : text;
-  }
+  const from013 = tryExtractDurability(t["Element_013"]?.value);
+  if (from013) return from013;
 
   // 2) fallback - 구조가 바뀌었을 때만 순회
   for (const k in t) {
     const el = t[k];
     if (el?.type !== "ShowMeTheMoney") continue;
-
-    const value = el.value;
-    if (typeof value !== "string") continue;
-    if (!value.includes("내구도")) continue;
-
-    const text = cleanText(stripHtml(value)).replace(/\|+$/g, "").trim();
-    const m = text.match(/내구도\s*[:：]?\s*(\d+)\s*\/\s*(\d+)/);
-    return m ? `내구도 ${m[1]} / ${m[2]}` : text;
+    const result = tryExtractDurability(el.value);
+    if (result) return result;
   }
 
   return "";

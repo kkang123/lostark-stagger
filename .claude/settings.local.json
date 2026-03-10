@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(cat app/components/equipment/AbilityStoneEngravingsSection.tsx && cat \"app/\\(app\\)/char/[name]/CharacterDetailsClient.tsx\")"
+      "Bash(cat app/components/equipment/AbilityStoneEngravingsSection.tsx && cat \"app/\\(app\\)/char/[name]/CharacterDetailsClient.tsx\")",
+      "Bash(npm run typecheck 2>&1)"
     ]
   }
 }

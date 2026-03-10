@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 
 import type { CharacterName } from "@/types/character.type";
+import { getErrorMessage } from "@/lib/utils";
 
 type Props = {
   name: CharacterName;
@@ -58,7 +59,7 @@ export default function ProfilePanel({ name }: Props) {
   if (isError) {
     return (
       <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-zinc-200">
-        {(error as Error).message}
+        {getErrorMessage(error)}
       </section>
     );
   }
