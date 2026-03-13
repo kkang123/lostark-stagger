@@ -1,4 +1,4 @@
-import type { AbilityStoneEngraving } from "@/lib/lostark/tooltip";
+import type { AbilityStoneEngraving, PolishingOption } from "@/lib/lostark/tooltip";
 
 export type EquipmentItemType =
   | "무기"
@@ -61,6 +61,8 @@ export type AccessoryUI = EquipmentBaseUI & {
   qualityClass?: string;
 
   abilityStoneEngravings: AbilityStoneEngraving[];
+  polishingOptions: PolishingOption[]; // 연마 효과 (목걸이/귀걸이/반지)
+  arkPassiveText: string; // 아크 패시브 포인트 효과
 };
 
 export type EquipmentUI = GearUI | AccessoryUI;

@@ -19,6 +19,7 @@ const EMPTY_DETAIL: EquipmentDetail = {
   arkPassiveText: "",
   durabilityText: "",
   abilityStoneEngravings: [],
+  polishingOptions: [],
 };
 
 type EquipKind = "gear" | "accessory";
@@ -77,6 +78,8 @@ export function toEquipmentUI(item: EquipmentItem): EquipmentUI {
     ...base,
     quality: accQuality,
     abilityStoneEngravings: detail.abilityStoneEngravings ?? [],
+    polishingOptions: detail.polishingOptions ?? [],
+    arkPassiveText: detail.arkPassiveText ?? "",
   };
 
   if (accQuality != null) {

@@ -13,6 +13,13 @@ export type AbilityStoneEngraving = {
   raw: string;
 };
 
+/** 연마 효과 한 줄 */
+export type PolishingOption = {
+  name: string;
+  value: string;
+  colorClass: string; // tailwind 텍스트 색상 클래스
+};
+
 export type EquipmentDetail = {
   quality: number | null;
   category: string;
@@ -24,7 +31,47 @@ export type EquipmentDetail = {
   durabilityText: string;
 
   abilityStoneEngravings: AbilityStoneEngraving[];
+  polishingOptions: PolishingOption[];
 };
+
+const POLISHING_COLOR_MAP: Record<string, string> = {
+  CE43FC: "text-purple-400",
+  "00B5FF": "text-sky-400",
+  FE9600: "text-orange-400",
+};
+
+function polishingColorToClass(hex: string): string {
+  return POLISHING_COLOR_MAP[hex.toUpperCase()] ?? "text-zinc-300";
+}
+
+/** 연마 효과 HTML → PolishingOption[] 파싱 */
+function extractPolishingOptions(html: string): PolishingOption[] {
+  const lines = html.split(/<br\s*\/?>/gi).filter(Boolean);
+  const result: PolishingOption[] = [];
+
+  for (const line of lines) {
+    const fontMatch = line.match(
+      /<FONT\s+[Cc][Oo][Ll][Oo][Rr]='([^']+)'>([^<]+)<\/FONT>/i,
+    );
+    if (!fontMatch) continue;
+
+    const colorHex = fontMatch[1].replace("#", "").toUpperCase();
+    const value = fontMatch[2].trim();
+
+    const name = line
+      .replace(/<img[^>]*\/?>/gi, "")
+      .replace(/<FONT[^>]*>[^<]*<\/FONT>/gi, "")
+      .replace(/<\/?[^>]+>/g, "")
+      .replace(/&nbsp;/g, " ")
+      .trim();
+
+    if (!name || !value) continue;
+
+    result.push({ name, value, colorClass: polishingColorToClass(colorHex) });
+  }
+
+  return result;
+}
 
 function safeParseJson(raw: string): TooltipRoot | null {
   if (!raw) return null;
@@ -296,6 +343,20 @@ export function extractEquipmentDetail(
   const durabilityText = extractDurabilityTextHybrid(t);
   const abilityStoneEngravings = extractAbilityStoneEngravings(t);
 
+  // 연마 효과 추출 (목걸이/귀걸이/반지)
+  let polishingOptions: PolishingOption[] = [];
+  for (const k in t) {
+    const el = t[k];
+    if (el?.type !== "ItemPartBox") continue;
+    const value = el.value;
+    if (!isRecord(value)) continue;
+    const header = stripHtml(getStr(value, "Element_000"));
+    if (/연마\s*효과/i.test(header)) {
+      polishingOptions = extractPolishingOptions(getStr(value, "Element_001"));
+      break;
+    }
+  }
+
   return {
     quality,
     category,
@@ -305,5 +366,6 @@ export function extractEquipmentDetail(
     arkPassiveText,
     durabilityText,
     abilityStoneEngravings,
+    polishingOptions,
   };
 }
