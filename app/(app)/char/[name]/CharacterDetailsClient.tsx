@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+
 import OverviewSection from "./_components/OverviewSection";
 import SiblingsTab from "@/components/character/SiblingsTab";
 
@@ -18,21 +20,28 @@ export default function CharacterDetailsClient({ name }: Props) {
   return (
     <main className="min-h-dvh bg-[#212225] text-zinc-100">
       <div className="mx-auto w-full max-w-3xl px-4 py-10">
-        <h1 className="text-2xl font-semibold">캐릭터 : {name}</h1>
+        {/* 뒤로가기 임시 생성 */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-200 transition-colors mb-4"
+        >
+          ← 검색으로 돌아가기
+        </Link>
 
-        <div className="inline-flex rounded-xl bg-gray-600 p-1">
+        <h1 className="text-2xl font-semibold mb-4">{name}</h1>
+
+        <div className="inline-flex rounded-xl bg-black/30 p-1">
           <button
             type="button"
             onClick={() => setTab("overview")}
             className={`
-      px-4 py-2 rounded-lg text-sm transition-all duration-200 ease-out
-
-      ${
-        tab === "overview"
-          ? "bg-background text-foreground font-medium shadow-sm"
-          : "text-foreground/60 hover:text-foreground"
-      }
-    `}
+              px-4 py-2 rounded-lg text-sm transition-all duration-200 ease-out
+              ${
+                tab === "overview"
+                  ? "bg-zinc-700 text-zinc-100 font-medium shadow-sm"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }
+            `}
           >
             능력치
           </button>
@@ -41,14 +50,13 @@ export default function CharacterDetailsClient({ name }: Props) {
             type="button"
             onClick={() => setTab("siblings")}
             className={`
-      px-4 py-2 rounded-lg text-sm transition-all duration-200 ease-out
-
-      ${
-        tab === "siblings"
-          ? "bg-background text-foreground font-medium shadow-sm"
-          : "text-foreground/60 hover:text-foreground"
-      }
-    `}
+              px-4 py-2 rounded-lg text-sm transition-all duration-200 ease-out
+              ${
+                tab === "siblings"
+                  ? "bg-zinc-700 text-zinc-100 font-medium shadow-sm"
+                  : "text-zinc-400 hover:text-zinc-200"
+              }
+            `}
           >
             원정대
           </button>

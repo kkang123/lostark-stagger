@@ -36,10 +36,6 @@ export default function EquipmentDetailDialog({
     return toEquipmentUI(item);
   }, [item]);
 
-  console.log("[WEAPON]", item?.Type, item?.Name);
-  console.log(item?.Tooltip?.slice(0, 500));
-  console.log("detail.durabilityText =", detail?.durabilityText);
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-180 rounded-2xl border border-white/10 bg-zinc-950 text-zinc-100">
@@ -128,7 +124,9 @@ function Section({ title, body }: { title: string; body: string }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 p-4">
       <div className="text-xs text-zinc-400">{title}</div>
-      <pre className="mt-2 whitespace-pre-wrap text-sm">{body}</pre>
+      <div className="mt-2 whitespace-pre-wrap text-sm text-zinc-100">
+        {body}
+      </div>
     </div>
   );
 }

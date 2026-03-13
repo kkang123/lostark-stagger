@@ -101,9 +101,14 @@ function extractDurabilityTextHybrid(t: TooltipRoot): string {
 function extractAbilityStoneEngravings(
   t: TooltipRoot,
 ): AbilityStoneEngraving[] {
-  const el = t["Element_007"];
+  let el: TooltipElement | undefined;
+  for (const k in t) {
+    if (t[k]?.type === "IndentStringGroup") {
+      el = t[k];
+      break;
+    }
+  }
   if (!el) return [];
-  if (el.type !== "IndentStringGroup") return [];
 
   const value = el.value;
   if (!isRecord(value)) return [];
@@ -140,6 +145,50 @@ function extractAbilityStoneEngravings(
   }
 
   return list;
+}
+
+function extractItemPartBoxSections(t: TooltipRoot): {
+  basicText: string;
+  extraText: string;
+  arkPassiveText: string;
+} {
+  const basic: string[] = [];
+  const extra: string[] = [];
+  const ark: string[] = [];
+
+  for (const k in t) {
+    const el = t[k];
+    if (el?.type !== "ItemPartBox") continue;
+    const value = el.value;
+    if (!isRecord(value)) continue;
+
+    const header = stripHtml(getStr(value, "Element_000"));
+    const body = cleanText(stripHtml(getStr(value, "Element_001")));
+    if (!body) continue;
+
+    if (/(아크\s*패시브|Ark\s*Passive)/i.test(header)) {
+      ark.push(body);
+    } else if (
+      /(추가\s*효과|추가\s*옵션|특수\s*효과|각인\s*효과|세트\s*효과)/i.test(
+        header,
+      )
+    ) {
+      extra.push(body);
+    } else if (
+      /(기본\s*효과)/i.test(header) ||
+      /(공격력|방어력|치명|특화|신속|제압|인내|숙련)/.test(body)
+    ) {
+      basic.push(body);
+    }
+  }
+
+  const join = (arr: string[]) => arr.join("\n\n").trim();
+
+  return {
+    basicText: join(basic),
+    extraText: join(extra),
+    arkPassiveText: join(ark),
+  };
 }
 
 function collectTextBlocks(t: TooltipRoot): string[] {
@@ -227,16 +276,13 @@ export function extractEquipmentDetail(
   if (!t) return null;
 
   const v001 = t["Element_001"]?.value;
-  const v005 = t["Element_005"]?.value;
-  const v007 = t["Element_007"]?.value;
-  const v009 = t["Element_009"]?.value;
 
   const quality = getNumOrNull(v001, "qualityValue");
   const category = stripHtml(getStr(v001, "leftStr0"));
   const itemLevelText = stripHtml(getStr(v001, "leftStr2"));
-  let basicText = stripHtml(getStr(v005, "Element_001"));
-  let extraText = stripHtml(getStr(v007, "Element_001"));
-  let arkPassiveText = stripHtml(getStr(v009, "Element_001"));
+
+  const sections = extractItemPartBoxSections(t);
+  let { basicText, extraText, arkPassiveText } = sections;
 
   if (!basicText || !extraText || !arkPassiveText) {
     const blocks = collectTextBlocks(t);
