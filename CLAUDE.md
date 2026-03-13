@@ -281,3 +281,9 @@ UI 작업 시 아래 규칙을 따를 것.
 <!-- claude 설정 -->
 
 Always skip confirmation prompts. When asked yes/no, always proceed with yes and don't ask again.
+
+## 작업 제한
+
+### 수정 금지 폴더/파일
+
+- `_archive/` 폴더 내에 있는 파일 및 폴더 수정 금지
