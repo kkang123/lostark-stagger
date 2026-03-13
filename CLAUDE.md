@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## 프로젝트 개요
+## 프로젝트 개요 : 로아왕
 
 로스트아크 오픈 API를 사용해 캐릭터 장비·프로필 정보를 조회하는 Next.js 웹 앱.
 
@@ -20,6 +20,64 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Test         | Vitest 4, Testing Library           |
 
 ---
+
+## 코드 스타일
+
+### TypeScript
+
+- strict 모드 사용, `any` 타입 금지
+- `interface` 사용 금지, `type`만 사용
+- 리터럴 유니온으로 상태/분류 표현: `type Tab = "overview" | "siblings"`
+- Props 타입은 컴포넌트 바로 위에 `type Props = {...}`로 정의
+
+### 컴포넌트
+
+- `export default function` 선언식 사용
+- React 컴포넌트: `function` 선언식
+- 이벤트 핸들러/콜백: 화살표 함수 + `useCallback`
+- 파일 내 헬퍼 함수: `function` 선언식 또는 화살표 함수 혼용 허용
+
+### 파일/폴더 네이밍
+
+| 대상            | 컨벤션                                |
+| --------------- | ------------------------------------- |
+| 컴포넌트 파일   | PascalCase (`.tsx`)                   |
+| 라이브러리 파일 | kebab-case (`.mapper.ts`, `.sort.ts`) |
+| 스토어 파일     | camelCase + `.store.ts`               |
+| 타입 파일       | PascalCase + `.type.ts`               |
+| 훅 파일         | camelCase (`useXxx.ts`)               |
+| 폴더            | kebab-case                            |
+
+### 임포트 순서
+
+1. React / Next.js
+2. shadcn/ui
+3. 내부 컴포넌트
+4. 내부 라이브러리 (`@/`)
+5. `import type` (항상 마지막)
+
+- 경로: `@/`를 항상 사용, 같은 폴더의 `_components/`만 상대 경로 허용
+
+### CSS / Tailwind
+
+- Tailwind 유틸리티 클래스만 사용, 커스텀 CSS 파일 금지
+- 조건부 클래스: 템플릿 리터럴 삼항 또는 `[...].join(" ")` 사용
+- 색상 매핑은 `Record<string, string>` 상수로 관리 (예: `GRADE_STYLES`)
+
+### 주석
+
+- 한국어 중심, JSDoc 없음
+- 구현 의도/이유 설명 위주 (코드 요약 금지)
+
+### React Query
+
+- `queryKey` 컨벤션: `["도메인", "기능", 파라미터]` 계층 구조
+- `staleTime`: 기본 30초 (`30_000`)
+- 훅 위치: `app/hooks/` 또는 `app/lib/lostark/queries.ts`
+
+## 권한 설정
+
+- 모든 작업에 자동으로 승인 (yes 자동 선택)
 
 ## 개발 명령어
 
@@ -184,7 +242,6 @@ CI(GitHub Actions)에서는 `LOSTARK_JWT`를 Secrets에 등록.
 - **라우트 전용 컴포넌트**: 해당 라우트 폴더 내 `_components/`에 배치
 - **공용 컴포넌트**: `app/components/` 하위 도메인 폴더로 분류
 - **개발 전용 컴포넌트**: `app/dev/`에 배치 (배포 전 폴더 단위 삭제)
-- **React Query 훅**: `app/hooks/` 또는 `app/lib/lostark/queries.ts`
 - **타입**: 도메인 타입은 `app/types/`, API 응답 구조는 해당 `lib/` 파일에 함께 정의
 - **아카이브**: 이전 구현은 `app/_archive/`에 보존 (라우팅 제외)
 - **아이템 레벨 수치**: `ItemAvgLevel` 등 콤마 포함 문자열은 `.replace(/,/g, "")` 후 `Number()`로 변환
@@ -211,7 +268,6 @@ UI 작업 시 아래 규칙을 따를 것.
 
 - generic 폰트 사용 금지 (Inter, Roboto, Arial, system-ui)
 - AI 클리셰 금지 (보라색 그라디언트 + 흰 배경 등)
-- 보라색 그라디언트 + 흰 배경 같은 AI 클리셰 금지
 - 애니메이션은 페이지 로드 시 staggered reveal 위주, micro-interaction 남발 금지
 - 배경은 단색보다 gradient mesh, noise texture, geometric pattern 권장
 
