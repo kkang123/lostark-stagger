@@ -43,3 +43,6 @@ next-env.d.ts
 
 # json 데이터
 /data
+
+# claude
+.claude/settings.local.json
