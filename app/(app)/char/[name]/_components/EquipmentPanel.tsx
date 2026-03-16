@@ -4,7 +4,9 @@
 import { useState, useMemo, useCallback } from "react";
 
 import EquipmentDetailDialog from "@/components/equipment/EquipmentDetailDialog";
+import EquipmentPanelSkeleton from "./EquipmentPanelSkeleton";
 import EquipmentRow from "@/components/equipment/EquipmentRow";
+
 import { toEquipmentUI } from "@/lib/lostark/equipment.mapper";
 import { splitAndSortEquipment } from "@/lib/lostark/equipment.sort";
 import { useCharacterEquipmentQuery } from "@/hooks/useCharacterEquipmentQuery";
@@ -35,11 +37,7 @@ export default function EquipmentPanel({ name }: Props) {
   }, []);
 
   if (isLoading) {
-    return (
-      <section className="rounded-2xl border border-white/10 bg-black/20 p-5 text-sm text-zinc-300">
-        장비 불러오는 중...
-      </section>
-    );
+    return <EquipmentPanelSkeleton />;
   }
 
   if (isError) {

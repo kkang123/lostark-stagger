@@ -3,6 +3,8 @@
 
 import Link from "next/link";
 
+import SiblingsListSkeleton from "@/components/character/SiblingsListSkeleton";
+
 import type { LostarkSibling } from "@/types/Sibling.types";
 import { parseItemLevel } from "@/lib/utils";
 
@@ -28,11 +30,7 @@ export default function SiblingsList({
   }
 
   if (loading) {
-    return (
-      <div className="rounded-2xl border border-white/10 bg-black/15 p-5 text-sm text-zinc-300">
-        불러오는 중...
-      </div>
-    );
+    return <SiblingsListSkeleton />;
   }
 
   if (errorMsg) {

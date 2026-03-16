@@ -6,8 +6,10 @@
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 
-import type { CharacterName } from "@/types/character.type";
+import ProfilePanelSkeleton from "./ProfilePanelSkeleton";
 import { getErrorMessage } from "@/lib/utils";
+
+import type { CharacterName } from "@/types/character.type";
 
 type Props = {
   name: CharacterName;
@@ -49,11 +51,7 @@ export default function ProfilePanel({ name }: Props) {
   });
 
   if (isLoading) {
-    return (
-      <section className="rounded-2xl border border-white/10 bg-black/20 p-5 text-sm text-zinc-300">
-        프로필 불러오는 중...
-      </section>
-    );
+    return <ProfilePanelSkeleton />;
   }
 
   if (isError) {
