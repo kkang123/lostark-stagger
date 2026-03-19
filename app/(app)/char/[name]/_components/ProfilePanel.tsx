@@ -1,12 +1,6 @@
-// 클라이언트 컴포넌트 + 내부 API 호출
-// 서버 컴포넌트로 만들었는데 클라이언트 컴포넌트로 승격되어 env가 적용이 안됐음
-
-"use client";
-
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
 
-import ProfilePanelSkeleton from "./ProfilePanelSkeleton";
+import { getCharacterProfileServer } from "@/lib/lostark/api/server";
 import { getErrorMessage } from "@/lib/utils";
 
 import type { CharacterName } from "@/types/character.type";
@@ -15,54 +9,17 @@ type Props = {
   name: CharacterName;
 };
 
-type CharacterProfile = {
-  CharacterName: string;
-  CharacterLevel: number;
-  CharacterClassName: string;
-  ItemAvgLevel: string;
-  ServerName: string;
-  CharacterImage: string | null;
-};
-
-async function fetchCharacterProfile(
-  name: CharacterName,
-): Promise<CharacterProfile> {
-  // ✅ 외부 API 직접 호출 금지 → 내부 route.ts로 호출
-  const res = await fetch(
-    `/api/armories/characters/${encodeURIComponent(name)}/profile`,
-    { cache: "no-store" },
-  );
-
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
-    const status = body?.status ?? res.status;
-    throw new Error(`캐릭터 정보를 불러오지 못했습니다. (status: ${status})`);
-  }
-
-  return res.json();
-}
-
-export default function ProfilePanel({ name }: Props) {
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["profile", name],
-    queryFn: () => fetchCharacterProfile(name),
-    enabled: Boolean(name),
-    staleTime: 30_000,
-  });
-
-  if (isLoading) {
-    return <ProfilePanelSkeleton />;
-  }
-
-  if (isError) {
+export default async function ProfilePanel({ name }: Props) {
+  let data;
+  try {
+    data = await getCharacterProfileServer(name);
+  } catch (err) {
     return (
       <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-zinc-200">
-        {getErrorMessage(error)}
+        {getErrorMessage(err)}
       </section>
     );
   }
-
-  if (!data) return null;
 
   return (
     <section className="rounded-2xl border border-white/10 bg-black/20 p-5">

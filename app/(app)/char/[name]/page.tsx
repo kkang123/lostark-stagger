@@ -1,5 +1,6 @@
 // 서버 컴포넌트
 import CharacterDetailsClient from "@/(app)/char/[name]/CharacterDetailsClient";
+import OverviewSection from "./_components/OverviewSection";
 
 import type { CharacterName } from "@/types/character.type";
 
@@ -12,7 +13,12 @@ export default async function CharacterDetailsPage({ params }: Props) {
   const { name } = await params; // ✅ Promise 언랩
   const decodedName = decodeURIComponent(name);
 
-  return <CharacterDetailsClient name={decodedName} />;
+  return (
+    <CharacterDetailsClient
+      name={decodedName}
+      overviewContent={<OverviewSection name={decodedName} />}
+    />
+  );
 }
 
 // "use client";

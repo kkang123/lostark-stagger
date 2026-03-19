@@ -3,18 +3,22 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import OverviewSection from "./_components/OverviewSection";
 import SiblingsTab from "@/components/character/SiblingsTab";
 
+import type { ReactNode } from "react";
 import type { CharacterName } from "@/types/character.type";
 
 type Tab = "overview" | "siblings";
 
 type Props = {
   name: CharacterName;
+  overviewContent: ReactNode;
 };
 
-export default function CharacterDetailsClient({ name }: Props) {
+export default function CharacterDetailsClient({
+  name,
+  overviewContent,
+}: Props) {
   const [tab, setTab] = useState<Tab>("overview");
 
   return (
@@ -63,7 +67,7 @@ export default function CharacterDetailsClient({ name }: Props) {
         </div>
 
         <div className="mt-6">
-          {tab === "overview" && <OverviewSection name={name} />}
+          {tab === "overview" && overviewContent}
           {tab === "siblings" && <SiblingsTab name={name} />}
         </div>
       </div>
