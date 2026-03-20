@@ -23,6 +23,7 @@ export default function CharacterDetailsClient({
 
   return (
     <main className="min-h-dvh bg-[#212225] text-zinc-100">
+      {/* max-w-3xl px-4 좌우 여백 제공  */}
       <div className="mx-auto w-full max-w-3xl px-4 py-10">
         {/* 뒤로가기 임시 생성 */}
         <Link
