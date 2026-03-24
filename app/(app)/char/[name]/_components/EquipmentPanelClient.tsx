@@ -33,7 +33,7 @@ export default function EquipmentPanelClient({ sorted }: Props) {
       <div className="grid gap-3 md:grid-cols-2">
         {/* 왼쪽 */}
         <div>
-          <h4 className="mb-2 text-xs font-semibold text-[#636B82]">
+          <h4 className="mb-2 text-xs font-semibold text-(--color-text-tertiary)">
             무기 · 방어구
           </h4>
           <ul className="grid gap-2">
@@ -49,7 +49,7 @@ export default function EquipmentPanelClient({ sorted }: Props) {
 
         {/* 오른쪽 */}
         <div>
-          <h4 className="mb-2 text-xs font-semibold text-[#636B82]">장신구</h4>
+          <h4 className="mb-2 text-xs font-semibold text-(--color-text-tertiary)">장신구</h4>
           <ul className="grid gap-2">
             {right.map((it, idx) => (
               <EquipmentRow
@@ -64,7 +64,7 @@ export default function EquipmentPanelClient({ sorted }: Props) {
 
       {other.length > 0 && (
         <div className="mt-4">
-          <h4 className="mb-2 text-xs font-semibold text-[#636B82]">기타</h4>
+          <h4 className="mb-2 text-xs font-semibold text-(--color-text-tertiary)">기타</h4>
           <ul className="grid gap-2">
             {other.map((it, idx) => (
               <EquipmentRow

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 
 import { Providers } from "./providers";
 import AgentationClient from "@/dev/AgentationClient";
+import Header from "@/components/ui/Header";
 
 import "./globals.css";
 
@@ -27,11 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
+          <Header />
           {children}
           <AgentationClient />
         </Providers>

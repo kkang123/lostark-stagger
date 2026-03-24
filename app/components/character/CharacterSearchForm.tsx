@@ -35,15 +35,15 @@ export default function CharacterSearchForm() {
             placeholder=" "
             minLength={2}
             maxLength={12}
-            className="peer h-12 w-full rounded-xl border border-white/[0.07] bg-[#12151E] px-4 pt-5 text-sm text-[#E8EBF5] outline-none
+            className="peer h-12 w-full rounded-xl border border-(--color-border) bg-(--color-surface) px-4 pt-5 text-sm text-(--color-text-primary) outline-none
                placeholder:text-transparent focus:border-[#3182F6]/40 transition-colors"
           />
           <label
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#636B82]
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-(--color-text-tertiary)
                    transition-all duration-150
-                   peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#636B82]
+                   peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-(--color-text-tertiary)
                    peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-[#5B9AF8]
-                   peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-[#8B92A9]"
+                   peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-(--color-text-secondary)"
           >
             캐릭터명
           </label>
@@ -59,13 +59,13 @@ export default function CharacterSearchForm() {
         <button
           type="button"
           onClick={clear}
-          className="h-12 shrink-0 rounded-xl border border-white/[0.07] bg-transparent px-4 text-sm text-[#636B82] hover:bg-white/[0.04] hover:text-[#8B92A9] transition-colors"
+          className="h-12 shrink-0 rounded-xl border border-(--color-border) bg-transparent px-4 text-sm text-(--color-text-tertiary) hover:bg-(--color-surface-elevated) hover:text-(--color-text-secondary) transition-colors"
         >
           초기화
         </button>
       </div>
 
-      <p className="text-xs text-[#4E5566]">
+      <p className="text-xs text-(--color-text-tertiary)">
         * 검색은 서버에서 JWT로 호출되며, 브라우저로 토큰이 노출되지 않습니다.
       </p>
 
