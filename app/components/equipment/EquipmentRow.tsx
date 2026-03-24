@@ -22,11 +22,11 @@ export default function EquipmentRow({ item, onClick }: Props) {
   const boss = special ? null : bossFromItemName(item.name);
 
   return (
-    <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/10 p-3">
+    <li className="rounded-xl border border-white/[0.07] bg-[#0F1119] transition-colors hover:bg-[#161A26]">
       <button
         type="button"
         onClick={onClick}
-        className="relative flex w-full items-center rounded-xl border p-3 text-left cursor-pointer"
+        className="relative flex w-full items-center p-3 text-left cursor-pointer"
       >
         <div className="relative z-10 flex w-full items-center gap-3">
           <div className="relative h-10 w-10 shrink-0">
@@ -84,11 +84,11 @@ export default function EquipmentRow({ item, onClick }: Props) {
 
             {item.kind === "gear" && (
               <div className="flex flex-col gap-0.5 mt-1">
-                <span className="text-xs leading-tight text-zinc-400">
+                <span className="text-xs leading-tight text-[#636B82]">
                   {item.itemLevelText}
                 </span>
 
-                <span className="truncate text-sm text-zinc-100">
+                <span className="truncate text-sm text-[#E8EBF5]">
                   {item.name}
                 </span>
               </div>
@@ -102,7 +102,7 @@ export default function EquipmentRow({ item, onClick }: Props) {
                       key={i}
                       className="flex items-center gap-1 text-[11px]"
                     >
-                      <span className="text-zinc-400 truncate">{opt.name}</span>
+                      <span className="text-[#636B82] truncate">{opt.name}</span>
                       <span className={opt.colorClass}>{opt.value}</span>
                     </div>
                   ))}

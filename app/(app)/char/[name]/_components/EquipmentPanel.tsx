@@ -17,7 +17,7 @@ export default async function EquipmentPanel({ name }: Props) {
     data = await getCharacterEquipmentServer(name);
   } catch (err) {
     return (
-      <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-zinc-200">
+      <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-[#E8EBF5]">
         {getErrorMessage(err)}
       </section>
     );
@@ -25,7 +25,7 @@ export default async function EquipmentPanel({ name }: Props) {
 
   if (!data || data.length === 0) {
     return (
-      <section className="rounded-2xl border border-white/10 bg-black/20 p-5 text-sm text-zinc-300">
+      <section className="rounded-2xl border border-white/[0.07] bg-[#12151E] p-5 text-sm text-[#8B92A9]">
         장비 정보가 없습니다.
       </section>
     );
@@ -35,5 +35,9 @@ export default async function EquipmentPanel({ name }: Props) {
     [...data].sort((a, b) => a.Type.localeCompare(b.Type)).map(toEquipmentUI),
   );
 
-  return <EquipmentPanelClient sorted={sorted} />;
+  return (
+    <section className="rounded-2xl border border-white/[0.07] bg-[#12151E] p-5">
+      <EquipmentPanelClient sorted={sorted} />
+    </section>
+  );
 }

@@ -15,14 +15,14 @@ export default async function ProfilePanel({ name }: Props) {
     data = await getCharacterProfileServer(name);
   } catch (err) {
     return (
-      <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-zinc-200">
+      <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-sm text-[#E8EBF5]">
         {getErrorMessage(err)}
       </section>
     );
   }
 
   return (
-    <section className="rounded-2xl border border-white/10 bg-black/20 p-5">
+    <section className="rounded-2xl border border-white/[0.07] bg-[#12151E] p-5">
       <div className="flex gap-4">
         {data.CharacterImage && (
           <Image
@@ -34,15 +34,15 @@ export default async function ProfilePanel({ name }: Props) {
           />
         )}
         <div className="flex flex-col gap-1">
-          <h2 className="text-lg font-semibold">{data.CharacterName}</h2>
-          <p className="text-sm text-zinc-300">서버: {data.ServerName}</p>
-          <p className="text-sm text-zinc-300">
+          <h2 className="text-lg font-semibold text-[#E8EBF5]">{data.CharacterName}</h2>
+          <p className="text-sm text-[#8B92A9]">서버: {data.ServerName}</p>
+          <p className="text-sm text-[#8B92A9]">
             클래스 : {data.CharacterClassName}
           </p>
-          <div className="text-sm text-zinc-300">
+          <div className="text-sm text-[#8B92A9]">
             <span>전투 레벨</span> <span>{data.CharacterLevel}</span>
           </div>
-          <p className="text-sm text-zinc-300">
+          <p className="text-sm text-[#8B92A9]">
             아이템 레벨 : {data.ItemAvgLevel}
           </p>
         </div>

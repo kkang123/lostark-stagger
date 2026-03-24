@@ -35,15 +35,15 @@ export default function CharacterSearchForm() {
             placeholder=" "
             minLength={2}
             maxLength={12}
-            className="peer h-12 w-full rounded-xl border border-white/10 bg-black/20 px-4 pt-5 text-sm outline-none
-               placeholder:text-transparent focus:border-white/20"
+            className="peer h-12 w-full rounded-xl border border-white/[0.07] bg-[#12151E] px-4 pt-5 text-sm text-[#E8EBF5] outline-none
+               placeholder:text-transparent focus:border-[#3182F6]/40 transition-colors"
           />
           <label
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-zinc-400
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-[#636B82]
                    transition-all duration-150
-                   peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-zinc-400
-                   peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-zinc-300
-                   peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-zinc-300"
+                   peer-placeholder-shown:top-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#636B82]
+                   peer-focus:top-2 peer-focus:translate-y-0 peer-focus:text-xs peer-focus:text-[#5B9AF8]
+                   peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:translate-y-0 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:text-[#8B92A9]"
           >
             캐릭터명
           </label>
@@ -52,20 +52,20 @@ export default function CharacterSearchForm() {
         <button
           type="submit"
           disabled={!isValid}
-          className="h-12 shrink-0 rounded-xl bg-white/10 px-4 text-sm font-medium hover:bg-white/15 active:bg-white/20 disabled:opacity-40 disabled:hover:bg-white/10"
+          className="h-12 shrink-0 rounded-xl bg-[#3182F6] px-4 text-sm font-medium text-white hover:bg-[#2571E5] active:bg-[#1F63D4] disabled:opacity-40 disabled:hover:bg-[#3182F6] transition-colors"
         >
           검색
         </button>
         <button
           type="button"
           onClick={clear}
-          className="h-12 shrink-0 rounded-xl border border-white/10 bg-transparent px-4 text-sm hover:bg-white/5"
+          className="h-12 shrink-0 rounded-xl border border-white/[0.07] bg-transparent px-4 text-sm text-[#636B82] hover:bg-white/[0.04] hover:text-[#8B92A9] transition-colors"
         >
           초기화
         </button>
       </div>
 
-      <p className="text-xs text-zinc-400">
+      <p className="text-xs text-[#4E5566]">
         * 검색은 서버에서 JWT로 호출되며, 브라우저로 토큰이 노출되지 않습니다.
       </p>
 

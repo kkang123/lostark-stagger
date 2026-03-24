@@ -38,7 +38,7 @@ export default function EquipmentDetailDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-180 rounded-2xl border border-white/10 bg-zinc-950 text-zinc-100">
+      <DialogContent className="max-w-180 rounded-2xl border border-white/[0.07] bg-[#12151E] text-[#E8EBF5]">
         {!item ? null : (
           <>
             <DialogHeader>
@@ -58,7 +58,7 @@ export default function EquipmentDetailDialog({
                   <div className="truncate text-base font-semibold">
                     {item.Name}
                   </div>
-                  <div className="text-xs text-zinc-400">
+                  <div className="text-xs text-[#636B82]">
                     {item.Grade} · {item.Type}
                   </div>
                 </div>
@@ -66,10 +66,10 @@ export default function EquipmentDetailDialog({
             </DialogHeader>
 
             {!detail ? (
-              <div className="text-sm text-zinc-400">Tooltip 파싱 실패</div>
+              <div className="text-sm text-[#636B82]">Tooltip 파싱 실패</div>
             ) : (
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                <div className="grid grid-cols-2 gap-3 rounded-xl border border-white/[0.07] bg-white/[0.03] p-4">
                   <Info
                     label="아이템 레벨"
                     value={detail.itemLevelText || "-"}
@@ -113,7 +113,7 @@ function Info({ label, value }: { label: string; value: React.ReactNode }) {
   if (!label) return null; // label이 빈 문자열이면 아예 숨김
   return (
     <div>
-      <div className="text-xs text-zinc-400">{label}</div>
+      <div className="text-xs text-[#636B82]">{label}</div>
       <div className="text-sm font-medium">{value}</div>
     </div>
   );
@@ -122,9 +122,9 @@ function Info({ label, value }: { label: string; value: React.ReactNode }) {
 function Section({ title, body }: { title: string; body: string }) {
   if (!body) return null;
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-      <div className="text-xs text-zinc-400">{title}</div>
-      <div className="mt-2 whitespace-pre-wrap text-sm text-zinc-100">
+    <div className="rounded-xl border border-white/[0.07] bg-white/[0.03] p-4">
+      <div className="text-xs text-[#636B82]">{title}</div>
+      <div className="mt-2 whitespace-pre-wrap text-sm text-[#E8EBF5]">
         {body}
       </div>
     </div>
