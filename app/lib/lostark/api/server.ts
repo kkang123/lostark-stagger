@@ -2,6 +2,7 @@ import "server-only";
 
 import type { CharacterName } from "@/types/character.type";
 import type { EquipmentItem } from "@/types/Equipment.type";
+import type { CharacterCards } from "@/types/Card.type";
 import type { CharacterProfile } from "./armories";
 
 async function lostarkFetch<T>(path: string): Promise<T> {
@@ -39,4 +40,9 @@ export function getCharacterEquipmentServer(name: CharacterName) {
   return lostarkFetch<EquipmentItem[]>(
     `/armories/characters/${encodedName}/equipment`,
   );
+}
+
+export function getCharacterCardsServer(name: CharacterName) {
+  const encodedName = encodeURIComponent(name.trim());
+  return lostarkFetch<CharacterCards>(`/armories/characters/${encodedName}/cards`);
 }

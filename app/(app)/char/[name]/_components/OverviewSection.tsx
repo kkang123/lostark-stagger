@@ -4,6 +4,7 @@ import ProfilePanel from "./ProfilePanel";
 import ProfilePanelSkeleton from "./ProfilePanelSkeleton";
 import EquipmentPanel from "./EquipmentPanel";
 import EquipmentPanelSkeleton from "./EquipmentPanelSkeleton";
+import CardsPanel from "./Card/CardsPanel";
 
 import type { CharacterName } from "@/types/character.type";
 
@@ -20,6 +21,7 @@ export default function OverviewSection({ name }: Props) {
       {/* <Suspense fallback={<EquipmentPanelSkeleton />}> */}
       <EquipmentPanel name={name} />
       {/* </Suspense> */}
+      <CardsPanel name={name} />
 
       {/* 이후 확장 예정 */}
       {/*
