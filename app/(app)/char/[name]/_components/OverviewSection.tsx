@@ -1,7 +1,10 @@
-"use client";
+// import { Suspense } from "react";
 
 import ProfilePanel from "./ProfilePanel";
+import ProfilePanelSkeleton from "./ProfilePanelSkeleton";
 import EquipmentPanel from "./EquipmentPanel";
+import EquipmentPanelSkeleton from "./EquipmentPanelSkeleton";
+import CardsPanel from "./Card/CardsPanel";
 
 import type { CharacterName } from "@/types/character.type";
 
@@ -9,12 +12,16 @@ type Props = {
   name: CharacterName;
 };
 
-export default function CharacterDetailsClient({ name }: Props) {
+export default function OverviewSection({ name }: Props) {
   return (
     <section className="grid gap-4">
-      {/* 기본 프로필 */}
+      {/* <Suspense fallback={<ProfilePanelSkeleton />}> */}
       <ProfilePanel name={name} />
+      {/* </Suspense> */}
+      {/* <Suspense fallback={<EquipmentPanelSkeleton />}> */}
       <EquipmentPanel name={name} />
+      {/* </Suspense> */}
+      <CardsPanel name={name} />
 
       {/* 이후 확장 예정 */}
       {/*

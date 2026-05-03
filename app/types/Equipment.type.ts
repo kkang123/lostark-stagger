@@ -1,10 +1,32 @@
-import type { AbilityStoneEngraving } from "@/lib/lostark/tooltip";
+import type { AbilityStoneEngraving, PolishingOption } from "@/lib/lostark/tooltip";
+
+export type EquipmentItemType =
+  | "무기"
+  | "투구"
+  | "상의"
+  | "하의"
+  | "장갑"
+  | "어깨"
+  | "목걸이"
+  | "귀걸이"
+  | "반지"
+  | "팔찌"
+  | "어빌리티 스톤";
+
+export type EquipmentGrade =
+  | "일반"
+  | "고급"
+  | "희귀"
+  | "영웅"
+  | "전설"
+  | "유물"
+  | "고대";
 
 export type EquipmentItem = {
-  Type: string;
+  Type: EquipmentItemType;
   Name: string;
   Icon: string;
-  Grade: string;
+  Grade: EquipmentGrade;
   Tooltip: string;
 };
 
@@ -17,7 +39,7 @@ export type EquipmentBaseUI = {
   icon: string;
   grade: string;
 
-  category?: string;
+  category: string;
 
   itemLevelText: string;
 
@@ -29,19 +51,18 @@ export type GearUI = EquipmentBaseUI & {
   kind: "gear";
   quality: number | null; // 품질
   qualityClass: string; // 품질 색
-  durabilityText?: string; // 내구성
+  durabilityText: string; // 내구성
 };
 
 // 장신구
 export type AccessoryUI = EquipmentBaseUI & {
   kind: "accessory";
-  quality?: number | null; // 장신구는 품질이 있을 수도/없을 수도
+  quality: number | null; // 장신구는 품질이 있을 수도/없을 수도 (null = 없음)
   qualityClass?: string;
-  // 팔찌/목걸이/반지 등 장신구 전용 필드 확장 가능
-  // statsText?: string;
-  // engravingText?: string;
 
-  abilityStoneEngravings?: AbilityStoneEngraving[];
+  abilityStoneEngravings: AbilityStoneEngraving[];
+  polishingOptions: PolishingOption[]; // 연마 효과 (목걸이/귀걸이/반지)
+  arkPassiveText: string; // 아크 패시브 포인트 효과
 };
 
 export type EquipmentUI = GearUI | AccessoryUI;

@@ -1,3 +1,5 @@
+// 장신구에 옵션 추가 후
+
 // Tooltip 파싱(품질, 아이템 레벨 추출)
 
 import type { EquipmentItem } from "@/types/Equipment.type";

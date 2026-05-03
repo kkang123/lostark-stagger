@@ -1,5 +1,22 @@
 {
   "enabledPlugins": {
-    "code-review@claude-plugins-official": true
+    "code-review@claude-plugins-official": true,
+    "autoApprove": true
+  },
+
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Write(src/**)",
+      "Write(app/**)",
+      "Write(components/**)",
+      "Write(lib/**)"
+    ],
+    "deny": [
+      "Write(.env*)",
+      "Write(next.config.*)",
+      "Write(package.json)",
+      "Bash(*)"
+    ]
   }
 }

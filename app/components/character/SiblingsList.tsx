@@ -3,7 +3,10 @@
 
 import Link from "next/link";
 
+import SiblingsListSkeleton from "@/components/character/SiblingsListSkeleton";
+
 import type { LostarkSibling } from "@/types/Sibling.types";
+import { parseItemLevel } from "@/lib/utils";
 
 type Props = {
   characterName: string;
@@ -27,11 +30,7 @@ export default function SiblingsList({
   }
 
   if (loading) {
-    return (
-      <div className="rounded-2xl border border-white/10 bg-black/15 p-5 text-sm text-zinc-300">
-        불러오는 중...
-      </div>
-    );
+    return <SiblingsListSkeleton />;
   }
 
   if (errorMsg) {
@@ -50,15 +49,8 @@ export default function SiblingsList({
     );
   }
 
-  const toNum = (v: unknown) => {
-    if (typeof v !== "string") return Number.NEGATIVE_INFINITY;
-    // "1,580.00" 같은 콤마 제거 후 변환
-    const n = Number(v.replace(/,/g, ""));
-    return Number.isFinite(n) ? n : Number.NEGATIVE_INFINITY;
-  };
-
   const sortedData = [...data].sort(
-    (a, b) => toNum(b.ItemAvgLevel) - toNum(a.ItemAvgLevel),
+    (a, b) => parseItemLevel(b.ItemAvgLevel) - parseItemLevel(a.ItemAvgLevel),
   );
 
   return (

@@ -1,7 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(cat app/components/equipment/AbilityStoneEngravingsSection.tsx && cat \"app/\\(app\\)/char/[name]/CharacterDetailsClient.tsx\")"
-    ]
-  }
-}

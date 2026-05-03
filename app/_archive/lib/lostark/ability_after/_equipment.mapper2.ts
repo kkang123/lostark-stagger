@@ -1,3 +1,5 @@
+// EquipmentRow.tsx에 장신구 특성 추가 후
+
 // 매핑 규칙(색상/배경) + UI 모델 변환
 
 import { extractEquipmentDetail } from "./tooltip";

@@ -22,11 +22,11 @@ export default function EquipmentRow({ item, onClick }: Props) {
   const boss = special ? null : bossFromItemName(item.name);
 
   return (
-    <li className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/10 p-3">
+    <li className="rounded-xl border border-(--color-border) bg-(--color-surface) transition-colors hover:bg-(--color-surface-elevated)">
       <button
         type="button"
         onClick={onClick}
-        className="relative flex w-full items-center rounded-xl border p-3 text-left"
+        className="relative flex w-full items-center p-3 text-left cursor-pointer"
       >
         <div className="relative z-10 flex w-full items-center gap-3">
           <div className="relative h-10 w-10 shrink-0">
@@ -82,17 +82,34 @@ export default function EquipmentRow({ item, onClick }: Props) {
               )}
             </div>
 
-            <div className="flex flex-col gap-0.5 mt-1">
-              <span className="text-xs leading-tight text-zinc-400">
-                {item.itemLevelText}
-              </span>
+            {item.kind === "gear" && (
+              <div className="flex flex-col gap-0.5 mt-1">
+                <span className="text-xs leading-tight text-(--color-text-tertiary)">
+                  {item.itemLevelText}
+                </span>
 
-              <span className="truncate text-sm text-zinc-100">
-                {item.name}
-              </span>
-            </div>
+                <span className="truncate text-sm text-(--color-text-primary)">
+                  {item.name}
+                </span>
+              </div>
+            )}
 
-            {item.kind === "accessory" && (
+            {item.kind === "accessory" &&
+              ["목걸이", "귀걸이", "반지"].includes(item.type) && (
+                <div className="mt-1 space-y-0.5">
+                  {item.polishingOptions.map((opt, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center gap-1 text-[11px]"
+                    >
+                      <span className="text-(--color-text-tertiary) truncate">{opt.name}</span>
+                      <span className={opt.colorClass}>{opt.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            {item.kind === "accessory" && item.type === "어빌리티 스톤" && (
               <AbilityStoneEngravingsSection
                 engravings={item.abilityStoneEngravings ?? []}
                 variant="row"

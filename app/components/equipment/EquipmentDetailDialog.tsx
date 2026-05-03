@@ -36,13 +36,9 @@ export default function EquipmentDetailDialog({
     return toEquipmentUI(item);
   }, [item]);
 
-  console.log("[WEAPON]", item?.Type, item?.Name);
-  console.log(item?.Tooltip?.slice(0, 500));
-  console.log("detail.durabilityText =", detail?.durabilityText);
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-180 rounded-2xl border border-white/10 bg-zinc-950 text-zinc-100">
+      <DialogContent className="max-w-180 rounded-2xl border border-(--color-border) bg-(--color-surface) text-(--color-text-primary)">
         {!item ? null : (
           <>
             <DialogHeader>
@@ -62,7 +58,7 @@ export default function EquipmentDetailDialog({
                   <div className="truncate text-base font-semibold">
                     {item.Name}
                   </div>
-                  <div className="text-xs text-zinc-400">
+                  <div className="text-xs text-(--color-text-tertiary)">
                     {item.Grade} · {item.Type}
                   </div>
                 </div>
@@ -70,10 +66,10 @@ export default function EquipmentDetailDialog({
             </DialogHeader>
 
             {!detail ? (
-              <div className="text-sm text-zinc-400">Tooltip 파싱 실패</div>
+              <div className="text-sm text-(--color-text-tertiary)">Tooltip 파싱 실패</div>
             ) : (
               <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                <div className="grid grid-cols-2 gap-3 rounded-xl border border-(--color-border) bg-(--color-surface-elevated) p-4">
                   <Info
                     label="아이템 레벨"
                     value={detail.itemLevelText || "-"}
@@ -117,7 +113,7 @@ function Info({ label, value }: { label: string; value: React.ReactNode }) {
   if (!label) return null; // label이 빈 문자열이면 아예 숨김
   return (
     <div>
-      <div className="text-xs text-zinc-400">{label}</div>
+      <div className="text-xs text-(--color-text-tertiary)">{label}</div>
       <div className="text-sm font-medium">{value}</div>
     </div>
   );
@@ -126,9 +122,11 @@ function Info({ label, value }: { label: string; value: React.ReactNode }) {
 function Section({ title, body }: { title: string; body: string }) {
   if (!body) return null;
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-      <div className="text-xs text-zinc-400">{title}</div>
-      <pre className="mt-2 whitespace-pre-wrap text-sm">{body}</pre>
+    <div className="rounded-xl border border-(--color-border) bg-(--color-surface-elevated) p-4">
+      <div className="text-xs text-(--color-text-tertiary)">{title}</div>
+      <div className="mt-2 whitespace-pre-wrap text-sm text-(--color-text-primary)">
+        {body}
+      </div>
     </div>
   );
 }

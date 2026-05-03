@@ -53,8 +53,27 @@ body {
 }
 
 body {
-  /* background: var(--background); */
-  background: #212225;
+  background: var(--color-bg);
+}
+
+:root {
+  --color-bg: #F5F6FA;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #F0F2F8;
+  --color-border: rgba(0, 0, 0, 0.07);
+  --color-text-primary: #191F28;
+  --color-text-secondary: #4E5968;
+  --color-text-tertiary: #8B95A1;
+}
+
+.dark {
+  --color-bg: #0B0D14;
+  --color-surface: #12151E;
+  --color-surface-elevated: #1C2030;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-text-primary: #E8EBF5;
+  --color-text-secondary: #8B92A9;
+  --color-text-tertiary: #636B82;
 }
 
 :root {
